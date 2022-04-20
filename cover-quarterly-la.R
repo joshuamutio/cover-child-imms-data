@@ -6,6 +6,11 @@ library(janitor)
 library(readxl)
 library(lubridate)
 
+# thresholds from PHFA
+
+optimal_performance_standard <- 0.95
+efficiency_standard <- 0.9
+
 # files pre-2018/19 don't have data tables and will need separate code for processing
 
 urls <-
@@ -173,6 +178,7 @@ cover_quarterly_la_df <- cover_quarterly_la_df %>%
                                  if_else(substr(cover_quarterly_la_df$financial_year_quarter, 12, 12) == "2", "07", "10")
                          )
   ))
+
 cover_quarterly_la_df <- cover_quarterly_la_df %>%
   mutate(date = ymd(paste0(cover_quarterly_la_df$Year, cover_quarterly_la_df$month, "01"))) %>%
   mutate("Frequency" = "Quarterly") %>%
